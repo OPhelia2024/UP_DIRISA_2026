@@ -1,0 +1,17 @@
+# data (keep raw dumps out of git unless small)
+data/raw/*
+!data/raw/.gitkeep
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# video (usually too large for git — link it in README instead)
+video/*
+!video/.gitkeep
+
+# OS
+.DS_Store
