@@ -1,25 +1,20 @@
 from flask import Flask, request, jsonify
-import pickle
+import joblib
 import pandas as pd
-from src.features import ChurnFeatureEngineer
 
 app = Flask(__name__)
 
 with open('UP_DIRISA_2026/src/model.pkl', 'rb') as f:
-    model = pickle.load(f)
+    model = joblib.load(f)
 
-feature_engineer = ChurnFeatureEngineer()    
 
 @app.route('/predict', methods=['POST'])
 def predict_churn():
-    """Endpoint for churn prediction."""
+    """Endpoint for turnout prediction."""
     try:
         # Parse request data
         data = request.get_json()
         df = pd.DataFrame([data])
-        
-        # Engineer features
-        df_features = feature_engineer.engineer_features(df)
         
         # Get required feature columns
         feature_cols = ['Province', 
@@ -33,7 +28,7 @@ def predict_churn():
                         'SpoiltRatio_prior',
                         'SnapshotYear'
         ]
-        X = df_features[feature_cols]
+        X = df[feature_cols]
         
         # Make prediction
         prediction = model.predict(X)[0]
