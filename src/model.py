@@ -22,8 +22,17 @@ def predict_churn():
         df_features = feature_engineer.engineer_features(df)
         
         # Get required feature columns
-        feature_cols = ['tenure_months', 'avg_monthly_usage', 
-                       'days_since_last_activity', 'total_spend']
+        feature_cols = ['Province', 
+                        'Ward', 
+                        'MunicipalityCode', 
+                        'RegisteredVoters_prior',
+                        'Turnout_prior',
+                        'IsMetro',
+                        'LogRegisteredVoters_prior',
+                        'MunicipalityAvgTurnout_prior',
+                        'SpoiltRatio_prior',
+                        'SnapshotYear'
+        ]
         X = df_features[feature_cols]
         
         # Make prediction
@@ -31,9 +40,8 @@ def predict_churn():
         probability = model.predict_proba(X)[0][1]
         
         return jsonify({
-            'customer_id': data['customer_id'],
-            'churn_prediction': bool(prediction),
-            'churn_probability': float(probability),
+            'predicted_turnout': prediction,
+            'prediction_probability' : probability,
             'model_version': 'v1.3'
         })
         
