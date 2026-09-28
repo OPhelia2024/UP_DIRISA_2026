@@ -58,7 +58,7 @@ def train_model(train_df: pd.DataFrame):
 
 
 def main():
-    st.title("🗳️ 2026 Local Government Election — Ward Turnout Forecast")
+    st.title("2026 Local Government Election - Ward Turnout Forecast")
     st.caption(
         "Predicts expected voter turnout per ward for the 4 November 2026 LGE, "
         "using turnout and registration patterns from the 2016 and 2021 elections."
@@ -70,7 +70,7 @@ def main():
     with st.sidebar:
         st.header("Model performance")
         st.metric("R² (held-out municipalities)", f"{r2:.3f}")
-        st.metric("Typical error (RMSE)", f"{rmse * 100:.1f} percentage points")
+        st.metric("Typical error (RMSE)", f"{rmse * 100:.1f}%")
         st.caption(
             "Evaluated on wards from municipalities not seen during training "
             "(a grouped split) rather than a plain random split - this avoids "
@@ -81,7 +81,7 @@ def main():
             "**Known limitations:**\n"
             "- Cannot see unobserved factors: weather, local issues, candidate scandals.\n"
             "- Trained on only two prior elections (2016, 2021).\n"
-            "- Predictions are estimates, not guarantees — use as a planning signal, not a certainty."
+            "- Predictions are estimates, not guarantees - use as a planning signal, not a certainty."
         )
 
     st.subheader("Forecast a ward's 2026 turnout")
@@ -112,11 +112,11 @@ def main():
         pcol2.metric(
             "2021 turnout (for comparison)",
             f"{selected['Turnout_prior'].values[0] * 100:.1f}%",
-            delta=f"{(prediction - selected['Turnout_prior'].values[0]) * 100:.1f} pp",
+            delta=f"{(prediction - selected['Turnout_prior'].values[0]) * 100:.1f} %",
         )
         st.caption(
             f"Typical error for this kind of prediction is about ±{rmse * 100:.1f} "
-            "percentage points, based on held-out validation."
+            "%, based on held-out validation."
         )
 
     st.markdown("---")

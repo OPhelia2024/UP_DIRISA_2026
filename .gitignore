@@ -9,7 +9,7 @@ __pycache__/
 .venv/
 venv/
 
-# video (usually too large for git — link it in README instead)
+# video (usually too large for git - link it in README instead)
 video/*
 !video/.gitkeep
 
